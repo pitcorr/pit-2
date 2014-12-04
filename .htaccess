@@ -1,0 +1,6 @@
+AddDefaultCharset UTF-8
+php_value display_errors 1
+php_value display_startup_errors 1
+#RewriteEngine on
+#RewriteRule ^tv/(.*)/cat/(.*) index.php?tv=$1&cat=$2
+
