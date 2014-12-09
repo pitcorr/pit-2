@@ -1,9 +1,9 @@
 <?php
 
-class Controller_login extends Controller
+class ControllerLogin extends Controller
 {
 
-    function action_index()
+    function ActionIndex()
     {
         $this->view->generate('login.phtml', 'layout.phtml');
     }

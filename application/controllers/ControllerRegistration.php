@@ -1,9 +1,9 @@
 <?php
 
-class Controller_registration extends Controller
+class ControllerRegistration extends Controller
 {
 
-    function action_index()
+    function ActionIndex()
     {
         $this->view->generate('registration.phtml', 'layout.phtml');
     }

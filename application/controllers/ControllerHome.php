@@ -1,9 +1,9 @@
 <?php
 
-class Controller_Home extends Controller
+class ControllerHome extends Controller
 {
 
-    function action_index()
+    function ActionIndex()
     {
         $this->view->generate('home.phtml', 'layout.phtml');
     }
