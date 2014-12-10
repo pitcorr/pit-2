@@ -4,15 +4,26 @@ class Config
 {
     private static $config;
 
-    public static function init($dev)
+    public static function init($dir)
     {
-        self::$config = require ROOT_PATH.'/framework/config/default.php';
-        $config2=require ROOT_PATH.'/application/config/dev/'.$dev.'.php';
-        array_merge(self::$config, $config2);
-        print_r(self::$config);
+        $configTemp = require_once ROOT_PATH . '/framework/config/default.php';
+        $pathConfig = ROOT_PATH . '/application/config/' . $dir . '/';
+        if (is_dir($pathConfig)) {
+            $keys = array_keys($configTemp);
+            foreach ($keys as $k) {
+                if (file_exists($pathConfig . $k . '.php')) {
+                    $confDev = require_once $pathConfig . $k . '.php';
+                    $configTemp[$k] = array_merge($configTemp[$k], $confDev[$k]);
+                }
+            }
+        }
+        self::$config = $configTemp;
     }
-    public static function getConfig()
+
+    public static function getConfig($key)
     {
+        if(isset(self::$config[$key])) return self::$config[$key];
+        else return self::$config;
 
     }
 }
