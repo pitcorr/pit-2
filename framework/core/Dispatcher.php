@@ -17,9 +17,9 @@ class Dispatcher
             $actionName = $routes[2];
         }
 
-        $modelName = 'Model' . ucfirst(strtolower($controllerName));
-        $controllerName = 'Controller' . ucfirst(strtolower($controllerName));
-        $actionName = 'Action' . ucfirst(strtolower($actionName));
+        $modelName = ucfirst(strtolower($controllerName)).'Model';
+        $controllerName = ucfirst(strtolower($controllerName)) . 'Controller';
+        $actionName = ucfirst(strtolower($actionName)).'Action';
 
         $modelFile = $modelName . '.php';
         $modelPath = ROOT_PATH."/application/models/" . $modelFile;
@@ -52,7 +52,7 @@ class Dispatcher
         $host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
         header('HTTP/1.1 404 Not Found');
         header("Status: 404 Not Found");
-        header('Location:' . $host . '404');
+        header('Location:' . $host . 'error404');
     }
 
 }

@@ -20,10 +20,11 @@ class Config
         self::$config = $configTemp;
     }
 
-    public static function getConfig($key)
+    public static function getConfig($key=false)
     {
         if(isset(self::$config[$key])) return self::$config[$key];
-        else return self::$config;
+        elseif ($key==false) return self::$config;
+        else return false;
 
     }
 }

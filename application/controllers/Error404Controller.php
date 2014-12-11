@@ -1,9 +1,9 @@
 <?php
 
-class Controller404 extends Controller
+class Error404Controller extends Controller
 {
 
-    function ActionIndex()
+    function IndexAction()
     {
         $this->view->generateError('404.phtml', 'layout.phtml');
     }

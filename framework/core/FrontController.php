@@ -2,6 +2,8 @@
 
 include_once ROOT_PATH . '/framework/class/Config.php';
 Config::init('dev');
+//include_once ROOT_PATH . '/framework/class/Database.php';
+
 include_once ROOT_PATH . '/framework/core/Model.php';
 include_once ROOT_PATH . '/framework/core/View.php';
 include_once ROOT_PATH . '/framework/core/Controller.php';
