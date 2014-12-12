@@ -1,5 +1,5 @@
 <?php
-include_once 'framework/functions.php'; //help function
+include_once 'framework/functions.php';//help function
 
 ini_set('display_errors', 1);
 

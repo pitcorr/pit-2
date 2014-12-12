@@ -3,28 +3,45 @@
 class Config
 {
     private static $config;
-
-    public static function init($dir)
+     public static function init($dir = null)
     {
-        $configTemp = require_once ROOT_PATH . '/framework/config/default.php';
-        $pathConfig = ROOT_PATH . '/application/config/' . $dir . '/';
-        if (is_dir($pathConfig)) {
-            $keys = array_keys($configTemp);
-            foreach ($keys as $k) {
-                if (file_exists($pathConfig . $k . '.php')) {
-                    $confDev = require_once $pathConfig . $k . '.php';
-                    $configTemp[$k] = array_merge($configTemp[$k], $confDev[$k]);
-                }
+        $pathDefault = $_SERVER['DOCUMENT_ROOT'] . '/framework/config/';
+        $confDefault = Config::assembleConfig($pathDefault);
+        self::$config = $confDefault;
+
+        if (isset($dir)) {
+            $pathConfig = $_SERVER['DOCUMENT_ROOT'] . '/application/config/' . $dir . '/';
+            $confUser = Config::assembleConfig($pathConfig);
+            self::$config = array_replace_recursive($confDefault, $confUser);
+        }
+        if (isset(self::$config['registry'])){
+            foreach (self::$config['registry'] as $key=>$v){
+                Registry::set($key, $v);
             }
         }
-        self::$config = $configTemp;
     }
 
-    public static function getConfig($key=false)
+    public function assembleConfig($path)
     {
-        if(isset(self::$config[$key])) return self::$config[$key];
-        elseif ($key==false) return self::$config;
-        else return false;
+        $filesList = glob($path . '*.php');
+        $config = array();
+        foreach ($filesList as $file) {
+            $confTemp = require_once $file;
+            $config = array_merge($config, $confTemp);
+        }
+        return $config;
+    }
+
+
+    public static function getConfig($key = false, $subKey=false)
+    {
+        if (isset(self::$config[$key][$subKey]))
+            return self::$config[$key][$subKey];
+        elseif ($subKey == false && isset(self::$config[$key]))
+            return self::$config[$key];
+        elseif ($key == false)
+            return self::$config;
+        else return fase;
 
     }
 }
